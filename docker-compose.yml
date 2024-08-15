@@ -9,5 +9,3 @@ services:
     volumes:
       - ./attachments:/attachments
       - ./body.txt:/body.txt
-      - ./Gemfile:/Gemfile
-      - ./Gemfile.lock:/Gemfile.lock

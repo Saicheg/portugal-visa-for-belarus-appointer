@@ -1,0 +1,12 @@
+services:
+  appointer:
+    image: saicheg/portugal-visa-for-belarus-appointer:latest
+    environment:
+      GMAIL_USERNAME: "user@gmail.com"
+      GMAIL_PASSWORD: "password-from-list-of-password-for-third-party-tools"
+      TO_EMAIL: "info.slovakiainmin@blshelpline.com"
+      SUBJECT: "Запись на подачу документов"
+      SEND_TIME: "2024-08-28T09:00:00"
+    volumes:
+      - ./attachments:/attachments
+      - ./body.txt:/body.txt

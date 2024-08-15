@@ -1,0 +1,13 @@
+services:
+  appointer:
+    restart: on-failure
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./attachments:/attachments
+      - ./body.txt:/body.txt
+      - ./Gemfile:/Gemfile
+      - ./Gemfile.lock:/Gemfile.lock

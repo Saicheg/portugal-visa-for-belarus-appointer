@@ -4,6 +4,7 @@ This script is used to automate the process of requesting appointment for Portug
 
 ## How to use
 
+* Create a [new app password](https://myaccount.google.com/apppasswords) in your gmail account.
 * Copy `.env.sample` to `.env` and modify it with your data.
 * Copy `body.txt.sample` to `body.txt` and modify it with your data.
 * Place under `attachments/` folder PDF files you want to attach to the email.

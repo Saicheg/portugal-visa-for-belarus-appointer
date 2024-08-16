@@ -50,6 +50,12 @@ send_time = DateTime.new(SEND_TIME.year, SEND_TIME.month, SEND_TIME.day, SEND_TI
 
 mail.header['Date'] = send_time.strftime('%a, %d %b %Y %H:%M:%S %z')
 
+# NOTE: We don't know if these headers will work, but they worth to try
+mail.header['Importance'] = 'High'
+mail.header['X-Priority'] = '1'
+mail.header['Priority'] = 'Urgent'
+mail.header['X-MSMail-Priority'] = 'High'
+
 loop do
   current_time = DateTime.now
 

@@ -56,6 +56,12 @@ mail.header['X-Priority'] = '1'
 mail.header['Priority'] = 'Urgent'
 mail.header['X-MSMail-Priority'] = 'High'
 
+
+if DateTime.now >= send_time
+  $logger.info 'SEND_TIME is in the past. Exiting'
+  exit(0)
+end
+
 loop do
   current_time = DateTime.now
 

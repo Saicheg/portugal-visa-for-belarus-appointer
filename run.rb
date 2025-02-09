@@ -42,6 +42,10 @@ mail = Mail.new do
   body    BODY
 end
 
+if ENV['FROM']
+  mail.from = ENV['FROM']
+end
+
 if ENV['REPLY_TO']
   mail.reply_to = ENV['REPLY_TO']
 end

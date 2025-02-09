@@ -42,7 +42,13 @@ mail = Mail.new do
   body    BODY
 end
 
-Dir['/attachments/*.pdf'].each { |file| mail.add_file(file) }
+if ENV['REPLY_TO']
+  mail.reply_to = ENV['REPLY_TO']
+end
+
+if Dir.exist?('/attachments')
+  Dir['/attachments/*.pdf'].each { |file| mail.add_file(file) }
+end
 
 timezone = Timezone['Europe/Minsk']
 offset =  Rational(timezone.utc_offset / (24 * 60 * 60).to_f)

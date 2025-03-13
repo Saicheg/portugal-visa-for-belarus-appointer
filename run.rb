@@ -23,6 +23,7 @@ TO = ENV.fetch('TO_EMAIL')
 SUBJECT = ENV.fetch('SUBJECT')
 BODY = File.read('body.txt')
 SEND_TIME = DateTime.parse(ENV.fetch('SEND_TIME'))
+OFFSET_SECONDS = 2
 
 OPTIONS = {
   address: 'smtp.gmail.com',
@@ -57,6 +58,7 @@ end
 timezone = Timezone['Europe/Minsk']
 offset =  Rational(timezone.utc_offset / (24 * 60 * 60).to_f)
 send_time = DateTime.new(SEND_TIME.year, SEND_TIME.month, SEND_TIME.day, SEND_TIME.hour, SEND_TIME.minute, SEND_TIME.second, offset)
+send_time_with_offset = send_time - (OFFSET_SECONDS / (24 * 60 * 60).to_f)
 
 mail.header['Date'] = send_time.strftime('%a, %d %b %Y %H:%M:%S %z')
 
@@ -67,7 +69,7 @@ mail.header['Priority'] = 'Urgent'
 mail.header['X-MSMail-Priority'] = 'High'
 
 
-if DateTime.now >= send_time
+if DateTime.now >= send_time_with_offset
   $logger.info 'SEND_TIME is in the past. Exiting'
   exit(0)
 end
@@ -75,13 +77,13 @@ end
 loop do
   current_time = DateTime.now
 
-  $logger.info("Checking if time has come to send email #{current_time} > #{send_time}")
+  $logger.info("Checking if time has come to send email #{current_time} > #{send_time_with_offset}")
 
-  if current_time >= send_time
+  if current_time >= send_time_with_offset
     $logger.info 'Sending email'
     mail.deliver!
     exit(0)
   end
 
-  sleep(0.5)
+  sleep(0.3)
 end
